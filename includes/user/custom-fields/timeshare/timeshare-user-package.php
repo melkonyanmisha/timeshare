@@ -1,4 +1,23 @@
 <?php
+/**
+ * Handle data saving via POST request
+ *
+ * @return void
+ */
+function handle_timeshare_user_data(): void
+{
+    if (isset($_POST['timeshare_user_data']) && ! empty($_POST['timeshare_user'])) {
+        $timeshare_user_id = intval($_POST['timeshare_user']);
+
+        $timeshare_user_data = [
+            'timeshare_package_duration' => intval($_POST['timeshare_package_duration'])
+        ];
+
+        // Save user meta data
+        update_user_meta($timeshare_user_id, 'timeshare_user_data', json_encode($timeshare_user_data));
+    }
+}
+
 
 /**
  * @param array $timeshare_users
@@ -17,8 +36,8 @@ function render_timeshare_user_package(array $timeshare_users): void
                 <select id="timeshare-user" name="timeshare_user" required>
                     <option value="">Select User</option>
                     <?php
-                    foreach ($timeshare_users as $user) { ?>
-                        <option value="<?= esc_attr($user->ID); ?>"><?= esc_html($user->display_name); ?></option>
+                    foreach ($timeshare_users as $current_user) { ?>
+                        <option value="<?= esc_attr($current_user->ID); ?>"><?= esc_html($current_user->user_login);; ?></option>
                         <?php
                     } ?>
 

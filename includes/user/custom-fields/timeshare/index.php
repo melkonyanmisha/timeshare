@@ -14,23 +14,6 @@ if ( ! defined('ABSPATH')) {
 
 require_once 'timeshare-user-package.php';
 
-/**
- * @return void
- */
-function handle_timeshare_user_data(): void
-{
-    if (isset($_POST['timeshare_user_data']) && ! empty($_POST['timeshare_user'])) {
-        $timeshare_user_id = intval($_POST['timeshare_user']);
-
-        $timeshare_user_data = [
-            'timeshare_package_duration' => intval($_POST['timeshare_package_duration'])
-        ];
-
-        // Save user meta data
-        update_user_meta($timeshare_user_id, 'timeshare_user_data', json_encode($timeshare_user_data));
-    }
-}
-
 
 add_action('admin_init', 'handle_timeshare_user_data');
 
