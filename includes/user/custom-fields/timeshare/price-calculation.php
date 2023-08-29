@@ -1,5 +1,14 @@
 <?php
 
+function handle_price_calc_data() {
+    check_ajax_referer('calc-security-nonce', 'security');
+//    var_dump(5454544);
+//    exit;
+}
+
+add_action( 'wp_ajax_nopriv_price_calc_data', 'handle_price_calc_data' );
+add_action( 'wp_ajax_price_calc_data', 'handle_price_calc_data' );
+
 /**
  * @param array $timeshare_users
  *
@@ -371,7 +380,7 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
             </div>
 
             <div class="save-button">
-                <button onclick="onSubmit()">Save</button>
+                <button>Save</button>
             </div>
         </div>
 

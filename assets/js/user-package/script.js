@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
     //If current page is "User Groups"
-    if (pagenow === 'edit-' + timeshare_main.USER_GROUP_TAXONOMY) {
+    if (pagenow === 'edit-' + timeshareMain.userGroupTaxonomy) {
         const usersCounts = $('.posts.column-posts');
         const usersCountLinks = $(usersCounts).find('a');
 

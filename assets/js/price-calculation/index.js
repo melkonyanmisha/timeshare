@@ -106,9 +106,29 @@ $(document).ready(function () {
   $('.daily-percent').on('change', onDailyPercentChange);
 
   $('#data').text(JSON.stringify(JSON.parse(localStorage.getItem('data')), null, 2));
+
+  $('.save-button button').click(function() {
+
+    // console.log(5454544)
+    // localStorage.setItem('data', JSON.stringify(data));
+    const data = {
+      action: 'price_calc_data',
+      security: timeshareMain.security,
+      // Other data to send
+    };
+
+    $.post(timeshareMain.ajaxUrl, data, function(response) {
+      console.log(response)
+      // Handle the response
+    });
+
+    $('#data').text(JSON.stringify(JSON.parse(localStorage.getItem('data')), null, 2));
+  });
+
 });
 
-const onSubmit = () => {
-  localStorage.setItem('data', JSON.stringify(data));
-  $('#data').text(JSON.stringify(JSON.parse(localStorage.getItem('data')), null, 2));
-}
+// const onSubmit = () => {
+//   console.log(5454544)
+//   localStorage.setItem('data', JSON.stringify(data));
+//   $('#data').text(JSON.stringify(JSON.parse(localStorage.getItem('data')), null, 2));
+// }
