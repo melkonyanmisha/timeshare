@@ -1,0 +1,45 @@
+#imeshare-user-package-section > div{
+    margin-top: 50px;
+}
+
+#timeshare-user-form {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    gap: 15px;
+}
+
+#timeshare-user-form .btn {
+    width: max-content;
+}
+
+#timeshare-user-table{
+    width: 25%;
+}
+
+#timeshare-user-table, #timeshare-user-table th, #timeshare-user-table td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+#imeshare-user-package-section .pagination{
+    margin-top: 25px;
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
