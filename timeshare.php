@@ -76,7 +76,7 @@ if ( ! class_exists('Timeshare')) {
          */
         public function timeshare_enqueue_scripts(): void
         {
-            //Enqueue JS
+            //Enqueue MAIN JS files
             wp_enqueue_script(
                 'timeshare-main-js',
                 TIMESHARE_ASSETS_URL . '/js/script.js',
@@ -85,12 +85,68 @@ if ( ! class_exists('Timeshare')) {
             );
 
             wp_localize_script('timeshare-main-js', 'timeshare_main', [
-                'ajaxurl' => admin_url('admin-ajax.php'),
+                'ajaxurl'             => admin_url('admin-ajax.php'),
                 'USER_GROUP_TAXONOMY' => USER_GROUP_TAXONOMY,
             ]);
 
-            //Enqueue CSS
+            //Enqueue Main CSS files
             wp_enqueue_style('timeshare-main-css', TIMESHARE_ASSETS_URL . '/css/style.css', [], TIMESHARE_VERSION);
+
+//            #########Start Price Calculation##########
+            //Enqueue JS files
+//            todo@@@ may not need
+            wp_enqueue_script(
+                'price-calc-jquery-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/jquery.min.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+            wp_enqueue_script(
+                'price-calc-disable-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/disable.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+            wp_enqueue_script(
+                'price-calc-date-range-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/date-range.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+            wp_enqueue_script(
+                'price-calc-week-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/week.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+            wp_enqueue_script(
+                'price-calc-storage-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/storage.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+            wp_enqueue_script(
+                'price-calc-main-js',
+                TIMESHARE_ASSETS_URL . '/js/price-calculation/index.js',
+                ['jquery'],
+                TIMESHARE_VERSION
+            );
+
+
+            //Enqueue CSS files
+            wp_enqueue_style(
+                'timeshare-price-calc-css',
+                TIMESHARE_ASSETS_URL . '/css/price-calculation/style.css',
+                [],
+                TIMESHARE_VERSION
+            );
+//          #########End Price Calculation##########
+
         }
 
         /**
