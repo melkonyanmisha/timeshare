@@ -1,0 +1,123 @@
+#timeshare-user-price-calculation-section{
+    margin-top: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#timeshare-user-price-calculation-section * {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+#timeshare-user-price-calculation-section .container {
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+#timeshare-user-price-calculation-section .forms {
+    width: fit-content;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+}
+
+#timeshare-user-price-calculation-section .form {
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+#timeshare-user-price-calculation-section .form h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#timeshare-user-price-calculation-section .seasons-dates-range {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#timeshare-user-price-calculation-section .range-blocks {
+    width: 54%;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+}
+
+#timeshare-user-price-calculation-section .range-block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#timeshare-user-price-calculation-section .season-date-range {
+    display: flex;
+}
+
+#timeshare-user-price-calculation-section .season-date-range input {
+    margin-right: 10px;
+}
+
+#timeshare-user-price-calculation-section .season-sets {
+    margin-bottom: 10px;
+}
+
+#timeshare-user-price-calculation-section .season-rate {
+    width: 100%;
+    padding: 1px;
+}
+
+#timeshare-user-price-calculation-section .discount-by-date {
+    margin-bottom: 10px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#timeshare-user-price-calculation-section .discount-mode {
+    padding: 1px;
+}
+
+#timeshare-user-price-calculation-section .weekdays table, th, td {
+    padding: 5px 0;
+    border: 1px solid;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+#timeshare-user-price-calculation-section .weekday div {
+    width: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#timeshare-user-price-calculation-section .weekday input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+}
+
+#timeshare-user-price-calculation-section .weekday input[type="number"] {
+    width: 50px;
+}
+
+#timeshare-user-price-calculation-section .save-button {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#timeshare-user-price-calculation-section .save-button button {
+    width: 100%;
+    padding: 5px;
+    font-weight: bold;
+}

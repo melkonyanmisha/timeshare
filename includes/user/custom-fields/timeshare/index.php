@@ -13,9 +13,9 @@ if ( ! defined('ABSPATH')) {
 }
 
 require_once 'timeshare-user-package.php';
+require_once 'price-calculation.php';
 
 
-add_action('admin_init', 'handle_timeshare_user_data');
 
 /**
  * @return void
@@ -53,6 +53,7 @@ function timeshare_users_page_content(): void
         <div id="timeshare-user-page">
             <?php
             render_timeshare_user_package($timeshare_users);
+            render_timeshare_user_price_calc($timeshare_users);
 
             ?>
 
