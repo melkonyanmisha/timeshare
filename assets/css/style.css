@@ -1,5 +1,7 @@
-#imeshare-user-package-section > div{
+#timeshare-user-package-section > div{
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 #timeshare-user-form {
@@ -22,7 +24,7 @@
     text-align: center;
 }
 
-#imeshare-user-package-section .pagination{
+#timeshare-user-package-section .pagination{
     margin-top: 25px;
     width: 25%;
     display: flex;

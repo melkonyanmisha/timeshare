@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handle data saving via POST request
  *
@@ -17,7 +18,7 @@ function handle_timeshare_user_data(): void
         update_user_meta($timeshare_user_id, 'timeshare_user_data', json_encode($timeshare_user_data));
     }
 }
-
+add_action('admin_init', 'handle_timeshare_user_data');
 
 /**
  * @param array $timeshare_users
@@ -28,7 +29,7 @@ function render_timeshare_user_package(array $timeshare_users): void
 {
     ob_start();
     ?>
-    <div id="imeshare-user-package-section">
+    <div id="timeshare-user-package-section">
         <h3>Timeshare user package</h3>
         <div>
             <form id="timeshare-user-form" method="post" action="">
