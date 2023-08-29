@@ -76,25 +76,32 @@ if ( ! class_exists('Timeshare')) {
          */
         public function timeshare_enqueue_scripts(): void
         {
+            #########Start USer Package##########
             //Enqueue MAIN JS files
             wp_enqueue_script(
-                'timeshare-main-js',
-                TIMESHARE_ASSETS_URL . '/js/script.js',
+                'timeshare-user-package-main-js',
+                TIMESHARE_ASSETS_URL . '/js/user-package/script.js',
                 ['jquery'],
                 TIMESHARE_VERSION
             );
 
-            wp_localize_script('timeshare-main-js', 'timeshare_main', [
-                'ajaxurl'             => admin_url('admin-ajax.php'),
+            wp_localize_script('timeshare-user-package-main-js', 'timeshare_main', [
+                'ajaxurl' => admin_url('admin-ajax.php'),
                 'USER_GROUP_TAXONOMY' => USER_GROUP_TAXONOMY,
             ]);
 
             //Enqueue Main CSS files
-            wp_enqueue_style('timeshare-main-css', TIMESHARE_ASSETS_URL . '/css/style.css', [], TIMESHARE_VERSION);
+            wp_enqueue_style(
+                'timeshare-user-package-main-css',
+                TIMESHARE_ASSETS_URL . '/css/user-package/style.css',
+                [],
+                TIMESHARE_VERSION
+            );
+            #########End USer Package##########
 
-//            #########Start Price Calculation##########
+
+            #########Start Price Calculation##########
             //Enqueue JS files
-//            todo@@@ may not need
             wp_enqueue_script(
                 'price-calc-jquery-js',
                 TIMESHARE_ASSETS_URL . '/js/price-calculation/jquery.min.js',
@@ -137,7 +144,6 @@ if ( ! class_exists('Timeshare')) {
                 TIMESHARE_VERSION
             );
 
-
             //Enqueue CSS files
             wp_enqueue_style(
                 'timeshare-price-calc-css',
@@ -145,8 +151,7 @@ if ( ! class_exists('Timeshare')) {
                 [],
                 TIMESHARE_VERSION
             );
-//          #########End Price Calculation##########
-
+            #########End Price Calculation##########
         }
 
         /**
