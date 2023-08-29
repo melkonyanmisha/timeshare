@@ -85,9 +85,8 @@ if ( ! class_exists('Timeshare')) {
                 TIMESHARE_VERSION
             );
 
-            wp_localize_script('timeshare-user-package-main-js', 'timeshare_main', [
-                'ajaxurl' => admin_url('admin-ajax.php'),
-                'USER_GROUP_TAXONOMY' => USER_GROUP_TAXONOMY,
+            wp_localize_script('timeshare-user-package-main-js', 'timeshareMain', [
+                'userGroupTaxonomy' => USER_GROUP_TAXONOMY,
             ]);
 
             //Enqueue Main CSS files
@@ -143,6 +142,11 @@ if ( ! class_exists('Timeshare')) {
                 ['jquery'],
                 TIMESHARE_VERSION
             );
+
+            wp_localize_script('price-calc-main-js', 'timeshareMain', [
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'security' => wp_create_nonce('calc-security-nonce')
+            ]);
 
             //Enqueue CSS files
             wp_enqueue_style(
