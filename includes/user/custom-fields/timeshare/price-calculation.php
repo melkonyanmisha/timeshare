@@ -1,13 +1,17 @@
 <?php
 
-function handle_price_calc_data() {
+function handle_price_calc_data()
+{
     check_ajax_referer('calc-security-nonce', 'security');
-//    var_dump(5454544);
-//    exit;
+
+    if ( ! empty($_POST['timesharePriceCalcData'])) {
+        update_option('timeshare_price_calc_data', stripslashes($_POST['timesharePriceCalcData']));
+    }
+
 }
 
-add_action( 'wp_ajax_nopriv_price_calc_data', 'handle_price_calc_data' );
-add_action( 'wp_ajax_price_calc_data', 'handle_price_calc_data' );
+add_action('wp_ajax_nopriv_price_calc_data', 'handle_price_calc_data');
+add_action('wp_ajax_price_calc_data', 'handle_price_calc_data');
 
 /**
  * @param array $timeshare_users
@@ -383,11 +387,6 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
                 <button>Save</button>
             </div>
         </div>
-
-        <div style="width: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem">
-            <pre id="data"></pre>
-        </div>
-
     </div>
     <?php
     // Get the captured output and clear the buffer
