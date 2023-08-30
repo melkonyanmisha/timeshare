@@ -113,7 +113,7 @@ $(document).ready(function () {
                 timesharePriceCalcData: JSON.stringify(timesharePriceCalcData)
             },
             success: function (msg) {
-                alert('Successfully added!')
+                alert('Successfully saved!')
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.error(errorThrown);

@@ -5,9 +5,10 @@ function handle_price_calc_data()
     check_ajax_referer('calc-security-nonce', 'security');
 
     if ( ! empty($_POST['timesharePriceCalcData'])) {
-        update_option('timeshare_price_calc_data', stripslashes($_POST['timesharePriceCalcData']));
+        update_option(TIMESHARE_PRICE_CALC_DATA, stripslashes($_POST['timesharePriceCalcData']));
     }
 
+    wp_send_json_success(stripslashes($_POST['timesharePriceCalcData']));
 }
 
 add_action('wp_ajax_nopriv_price_calc_data', 'handle_price_calc_data');
