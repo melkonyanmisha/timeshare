@@ -118,34 +118,35 @@ if ( ! class_exists('Timeshare')) {
             wp_enqueue_script(
                 'price-calc-date-range-js',
                 TIMESHARE_ASSETS_URL . '/js/price-calculation/date-range.js',
-                ['jquery'],
+                ['jquery', 'price-calc-disable-js'],
                 TIMESHARE_VERSION
             );
 
             wp_enqueue_script(
                 'price-calc-week-js',
                 TIMESHARE_ASSETS_URL . '/js/price-calculation/week.js',
-                ['jquery'],
+                ['jquery', 'price-calc-disable-js'],
                 TIMESHARE_VERSION
             );
 
             wp_enqueue_script(
                 'price-calc-storage-js',
                 TIMESHARE_ASSETS_URL . '/js/price-calculation/storage.js',
-                ['jquery'],
+                ['jquery', 'price-calc-disable-js'],
                 TIMESHARE_VERSION
             );
 
             wp_enqueue_script(
                 'price-calc-main-js',
                 TIMESHARE_ASSETS_URL . '/js/price-calculation/index.js',
-                ['jquery'],
+                ['jquery', 'price-calc-disable-js'],
                 TIMESHARE_VERSION
             );
 
             wp_localize_script('price-calc-main-js', 'timeshareMain', [
                 'ajaxUrl' => admin_url('admin-ajax.php'),
-                'security' => wp_create_nonce('calc-security-nonce')
+                'security' => wp_create_nonce('calc-security-nonce'),
+                'timesharePriceCalcData' => get_option('timeshare_price_calc_data') ? get_option('timeshare_price_calc_data') : ''
             ]);
 
             //Enqueue CSS files
