@@ -57,6 +57,9 @@ if ( ! class_exists('Timeshare')) {
 
             define('TIMESHARE_USER_TAXONOMY', 'timeshare_user');
             define('TIMESHARE_USER_TAXONOMY_META_KEY', '_timeshare_user_group');
+
+            //To save price calculation data in wp_options table
+            define('TIMESHARE_PRICE_CALC_DATA', 'timeshare_price_calc_data');
         }
 
         /**
@@ -155,8 +158,8 @@ if ( ! class_exists('Timeshare')) {
             wp_localize_script('price-calc-main-js', 'timeshareMain', [
                 'ajaxUrl'                => admin_url('admin-ajax.php'),
                 'security'               => wp_create_nonce('calc-security-nonce'),
-                'timesharePriceCalcData' => get_option('timeshare_price_calc_data') ? get_option(
-                    'timeshare_price_calc_data'
+                'timesharePriceCalcData' => get_option(TIMESHARE_PRICE_CALC_DATA) ? get_option(
+                    TIMESHARE_PRICE_CALC_DATA
                 ) : ''
             ]);
 
