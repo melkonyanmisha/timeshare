@@ -1,14 +1,11 @@
 function fromStorage(form, season) {
-    const storage = timeshareMain.timesharePriceCalcData ? JSON.parse(timeshareMain.timesharePriceCalcData) : {};
+    if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
+    if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
 
-
-    if (!storage[form]) storage[form] = {}
-    if (!storage[form][season]) storage[form][season] = {}
-
-    const date_range = storage[form][season]['date_range']
-    const discount_mode = storage[form][season]['discount_mode']
-    const weekly_percent = storage[form][season]['weekly_percent']
-    const weeks = storage[form][season]['weeks']
+    const date_range = timesharePriceCalcData[form][season]['date_range']
+    const discount_mode = timesharePriceCalcData[form][season]['discount_mode']
+    const weekly_percent = timesharePriceCalcData[form][season]['weekly_percent']
+    const weeks = timesharePriceCalcData[form][season]['weeks']
 
     reset(form, date_range, discount_mode, weekly_percent, weeks);
 

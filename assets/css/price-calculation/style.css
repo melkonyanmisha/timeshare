@@ -1,4 +1,4 @@
-#timeshare-user-price-calculation-section{
+#timeshare-user-price-calculation-section {
     margin-top: 100px;
     display: flex;
     align-items: center;
@@ -86,7 +86,9 @@
     padding: 1px;
 }
 
-#timeshare-user-price-calculation-section .weekdays table, th, td {
+#timeshare-user-price-calculation-section .weekdays table,
+#timeshare-user-price-calculation-section .weekdays table th,
+#timeshare-user-price-calculation-section .weekdays table td {
     padding: 5px 0;
     border: 1px solid;
     text-align: center;
