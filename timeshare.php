@@ -71,7 +71,7 @@ if ( ! class_exists('Timeshare')) {
 
         private function is_timeshare_plugin_page()
         {
-            return get_current_screen()->id !== 'users_page_timeshare-users-page';
+            return get_current_screen()->id === 'users_page_timeshare-users-page';
         }
 
         /**
