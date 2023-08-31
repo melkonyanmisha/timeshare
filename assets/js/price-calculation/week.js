@@ -10,7 +10,12 @@ function onChangeWeekday() {
 
     if (!timesharePriceCalcData[form][season]['weeks']) timesharePriceCalcData[form][season]['weeks'] = [];
     if (!timesharePriceCalcData[form][season]['weeks'][parent_id]) timesharePriceCalcData[form][season]['weeks'][parent_id] = {}
-    timesharePriceCalcData[form][season]['weeks'][parent_id][week] = $(this).prop('checked');
+
+    if ($(this).prop('checked')) {
+        timesharePriceCalcData[form][season]['weeks'][parent_id][week] = $(this).prop('checked');
+    } else {
+        delete timesharePriceCalcData[form][season]['weeks'][parent_id][week];
+    }
 }
 
 const addWeek = (form) => {
