@@ -1,5 +1,7 @@
 //Need to keep  here for global scope
-const timesharePriceCalcData = timeshareMain.timesharePriceCalcData ? JSON.parse(timeshareMain.timesharePriceCalcData) : {};
+const timesharePriceCalcData = timeshareMain.timesharePriceCalcData
+    ? JSON.parse(timeshareMain.timesharePriceCalcData)
+    : {};
 
 $(document).ready(function () {
     disable(['more_six', 'four_six_before', 'two_four_before', 'less_two'], true);
@@ -113,7 +115,11 @@ $(document).ready(function () {
                 timesharePriceCalcData: JSON.stringify(timesharePriceCalcData)
             },
             success: function (msg) {
-                alert('Successfully saved!')
+                $('.timeshare-toast').css({ display: 'block' });
+                const timer = setTimeout(() => {
+                    $('.timeshare-toast').css({ display: 'none' });
+                    clearTimeout(timer);
+                }, 800);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.error(errorThrown);

@@ -387,6 +387,10 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
             <div class="save-button">
                 <button>Save</button>
             </div>
+
+            <div class="timeshare-toast">
+                <span>Successfully saved!</span>
+            </div>
         </div>
     </div>
     <?php
