@@ -38,7 +38,8 @@ function reset(form, date_range, discount_mode, weekly_percent, weeks) {
 
     const weeks_block = $(`tbody[data-form=${form}]`);
     if (weeks?.length) {
-        for (let i = 1; i < weeks.length; i++) {
+        weeks_block.empty();
+        for (let i = 0; i < weeks.length; i++) {
             $(weeks_block).append(addWeek(form));
         }
 
