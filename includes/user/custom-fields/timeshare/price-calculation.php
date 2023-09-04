@@ -310,12 +310,14 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
                     <div class="season-sets">
                         <select class="season-rate" id="season-rate-form-four" data-form="less_two">
                             <option value="">Select Season</option>
+                            <option value="all">All</option>
                             <option value="low">Low</option>
                             <option value="normal">Normal</option>
                             <option value="hot">Hot</option>
                             <option value="very_hot">Very Hot</option>
                             <option value="special">Special</option>
                         </select>
+                        <input type="number" class="yearly-percent" min="0" placeholder="Yearly percent" data-form="less_two">
                     </div>
 
                     <div class="discount-by-date">

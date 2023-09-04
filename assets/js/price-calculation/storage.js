@@ -2,24 +2,27 @@ function fromStorage(form, season) {
     if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
     if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
 
-    const date_range = timesharePriceCalcData[form][season]['date_range']
-    const discount_mode = timesharePriceCalcData[form][season]['discount_mode']
-    const weekly_percent = timesharePriceCalcData[form][season]['weekly_percent']
-    const weeks = timesharePriceCalcData[form][season]['weeks']
+    const date_range = timesharePriceCalcData[form][season]['date_range'];
+    const discount_mode = timesharePriceCalcData[form][season]['discount_mode'];
+    const yearly_percent = timesharePriceCalcData[form][season]['yearly_percent'];
+    const weekly_percent = timesharePriceCalcData[form][season]['weekly_percent'];
+    const weeks = timesharePriceCalcData[form][season]['weeks'];
 
     reset(form, date_range, discount_mode, weekly_percent, weeks);
 
-    if (date_range || discount_mode || weekly_percent || weeks) {
-        viewValues(form, season, {date_range, discount_mode, weekly_percent, weeks});
+    if (date_range || discount_mode || yearly_percent || weekly_percent || weeks) {
+        viewValues(form, season, {date_range, discount_mode, yearly_percent, weekly_percent, weeks});
     }
 }
 
 
 function reset(form, date_range, discount_mode, weekly_percent, weeks) {
     const range_block = $(`.range-blocks[data-form=${form}]`);
+
     if (date_range?.length) {
+        range_block.children().not(':first-child').remove(); // todo
         for (let i = 1; i < date_range.length; i++) {
-            $(range_block).append(addDate());
+            $(range_block).append(addDate(form)); // todo
         }
 
         $(range_block).children().each(function (i) {
@@ -29,9 +32,8 @@ function reset(form, date_range, discount_mode, weekly_percent, weeks) {
             i && $(this).find('button.remove-date').off('click').on('click', onDateRemove);
         });
     } else {
-        $(`.date-range[data-form=${form}]`).each(function () {
-            $(this).val('');
-        });
+        range_block.children().not(':first-child').remove(); // todo
+        $(`.date-range[data-form=${ form }]`).val(''); // todo
     }
 
     const weeks_block = $(`tbody[data-form=${form}]`);
@@ -82,6 +84,13 @@ function viewValues(form, season, value) {
     if (value.weekly_percent) {
         $(`.weekly-percent[data-form=${form}]`)
             .val(value.weekly_percent)
+            .prop('disabled', false);
+    }
+
+    // Set yearly percent
+    if (value.yearly_percent) {
+        $(`.yearly-percent[data-form=${form}]`)
+            .val(value.yearly_percent)
             .prop('disabled', false);
     }
 

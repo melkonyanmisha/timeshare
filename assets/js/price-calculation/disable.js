@@ -3,6 +3,7 @@ function disable(form, disabled, by) {
         const date_range = $(`.date-range[data-form=${f}]`);
         const add_date = $(`.add-date[data-form=${f}]`);
         const discount_mode = $(`.discount-mode[data-form=${f}]`);
+        const yearly_percent = $(`.yearly-percent[data-form=${f}]`);
         const weekly_percent = $(`.weekly-percent[data-form=${f}]`);
         const discount_sets = $(`.discount-sets[data-form=${f}]`);
         const daily_percent = $(`.daily-percent[data-form=${f}]`);
@@ -11,7 +12,18 @@ function disable(form, disabled, by) {
         if (by === 'weekly') {
             toggle(discount_sets, f, disabled);
             toggle(daily_percent, f, disabled);
+            toggle(yearly_percent, f, disabled);
             toggle(weekly_percent, f, !disabled);
+            toggle(weekday_input, f, disabled);
+            return;
+        }
+
+        if (by === 'yearly') {
+            toggle(date_range, f, !disabled);
+            toggle(discount_mode, f, disabled);
+            toggle(discount_sets, f, disabled);
+            toggle(daily_percent, f, disabled);
+            toggle(weekly_percent, f, disabled);
             toggle(weekday_input, f, disabled);
             return;
         }
@@ -19,6 +31,7 @@ function disable(form, disabled, by) {
         toggle(date_range, f, disabled);
         toggle(add_date, f, disabled);
         toggle(discount_mode, f, disabled);
+        toggle(yearly_percent, f, disabled);
         toggle(weekly_percent, f, disabled);
         toggle(discount_sets, f, !disabled);
         toggle(weekday_input, f, !disabled);

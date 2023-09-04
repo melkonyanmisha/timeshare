@@ -75,6 +75,10 @@
     padding: 1px;
 }
 
+#timeshare-user-price-calculation-section .yearly-percent {
+    display: none;
+}
+
 #timeshare-user-price-calculation-section .discount-by-date {
     margin-bottom: 10px;
     display: grid;
