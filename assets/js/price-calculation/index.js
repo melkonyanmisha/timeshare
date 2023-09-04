@@ -8,7 +8,14 @@ $(document).ready(function () {
     $('.season-rate').off('change').on('change', function () {
         const form = $(this).data('form');
 
-        disable([form], !$(this).val());
+        if ($(this).val() === 'all') {
+            $('.yearly-percent').css('display', 'inline-block');
+            disable([form], $(this).val() === 'all', 'yearly');
+        } else {
+            $('.yearly-percent').css('display', 'none');
+            disable([form], !$(this).val());
+        }
+
 
         if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
         if (!timesharePriceCalcData[form][$(this).val()]) timesharePriceCalcData[form][$(this).val()] = {}
@@ -22,8 +29,9 @@ $(document).ready(function () {
 
     $('.add-date').on('click', function () {
         const dates_block = $(this).parent().parent('.range-blocks');
+        const form = dates_block.data('form');
 
-        dates_block.append(addDate());
+        dates_block.append(addDate(form));
 
         $(this).parent().parent().children().each(function (i) {
             $(this).attr('id', i);
@@ -71,6 +79,17 @@ $(document).ready(function () {
     });
 
 
+    $('.yearly-percent').on('change', function () {
+        const form = $(this).data('form');
+        const season = $(`.season-rate[data-form=${form}]`).val();
+
+        if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
+        if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
+
+        timesharePriceCalcData[form][season]['yearly_percent'] = $(this).val();
+    });
+
+
     $('.weekly-percent').on('change', function () {
         const form = $(this).data('form');
         const season = $(`.season-rate[data-form=${form}]`).val();
@@ -115,9 +134,9 @@ $(document).ready(function () {
                 timesharePriceCalcData: JSON.stringify(timesharePriceCalcData)
             },
             success: function (msg) {
-                $('.timeshare-toast').css({ display: 'block' });
+                $('.timeshare-toast').css({display: 'block'});
                 const timer = setTimeout(() => {
-                    $('.timeshare-toast').css({ display: 'none' });
+                    $('.timeshare-toast').css({display: 'none'});
                     clearTimeout(timer);
                 }, 800);
             },

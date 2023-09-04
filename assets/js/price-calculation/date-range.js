@@ -15,12 +15,12 @@ function onDateChange() {
     timesharePriceCalcData[form][season]['date_range'][parent_id][range] = $(this).val();
 }
 
-function addDate() {
+function addDate(form) {
     return `
     <div class="range-block">
       <div class="season-date-range">
-        <input type="date" class="date-range" data-form="more_six" data-range="from">
-        <input type="date" class="date-range" data-form="more_six" data-range="to">
+        <input type="date" class="date-range" data-form=${ form } data-range="from">
+        <input type="date" class="date-range" data-form=${ form } data-range="to">
       </div>
       <button class="remove-date" data-form="more_six">-</button>
     </div>
