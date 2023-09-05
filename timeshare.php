@@ -2,7 +2,7 @@
 /*
 Plugin Name:    Timeshare
 Description:    Add custom functionality to Timeshare theme
-Author:         Misha
+Author:         Melkonyan Misha
 Version:        1.0.0
 Text Domain:    timeshare
 Domain Path:    /languages/
