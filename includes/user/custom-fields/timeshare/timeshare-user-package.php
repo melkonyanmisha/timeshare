@@ -11,13 +11,14 @@ function handle_timeshare_user_data(): void
         $timeshare_user_id = intval($_POST['timeshare_user']);
 
         $timeshare_user_data = [
-            'timeshare_package_duration' => intval($_POST['timeshare_package_duration'])
+            TIMESHARE_PACKAGE_DURATION => intval($_POST[TIMESHARE_PACKAGE_DURATION])
         ];
 
         // Save user meta data
         update_user_meta($timeshare_user_id, 'timeshare_user_data', json_encode($timeshare_user_data));
     }
 }
+
 add_action('admin_init', 'handle_timeshare_user_data');
 
 /**
@@ -38,14 +39,16 @@ function render_timeshare_user_package(array $timeshare_users): void
                     <option value="">Select User</option>
                     <?php
                     foreach ($timeshare_users as $current_user) { ?>
-                        <option value="<?= esc_attr($current_user->ID); ?>"><?= esc_html($current_user->user_login);; ?></option>
+                        <option value="<?= esc_attr($current_user->ID); ?>">
+                            <?= esc_html($current_user->user_login);; ?>
+                        </option>
                         <?php
                     } ?>
 
                 </select>
 
                 <label for="timeshare-package-duration"><b>Timeshare package duration:</b></label>
-                <select id="timeshare-package-duration" name="timeshare_package_duration" required>
+                <select id="timeshare-package-duration" name="<?= TIMESHARE_PACKAGE_DURATION; ?>" required>
                     <option value="">Select Duration</option>
                     <option value="7">7</option>
                     <option value="14">14</option>
@@ -98,14 +101,10 @@ function render_timeshare_user_package_table()
             ?>
             <tr>
                 <td>
-                    <?php
-                    esc_html_e($current_user_timeshare_data->user_login);
-                    ?>
+                    <?= esc_html($current_user_timeshare_data->user_login); ?>
                 </td>
                 <td>
-                    <?php
-                    esc_html_e($timeshare_user_data['timeshare_package_duration']);
-                    ?>
+                    <?= esc_html($timeshare_user_data[TIMESHARE_PACKAGE_DURATION]); ?>
                 </td>
             </tr>
             <?php
@@ -151,8 +150,8 @@ function get_pagination($users_timeshare_data_paginated, $rows_per_page, $curren
 
         for ($page = $start_page; $page <= $end_page; $page++) {
             $pagination_url = add_query_arg(array('package-page' => $page), $_SERVER['REQUEST_URI']);
-            $class = $page == $current_page ? 'active' : '';
-            echo '<a class="'.$class.'" href="' . esc_url($pagination_url) . '">' . $page . '</a>';
+            $class          = $page == $current_page ? 'active' : '';
+            echo '<a class="' . $class . '" href="' . esc_url($pagination_url) . '">' . $page . '</a>';
         }
 
         if ($current_page < $total_pages) {
