@@ -7,7 +7,7 @@
  */
 function handle_timeshare_user_data(): void
 {
-    if (isset($_POST['timeshare_user_data']) && ! empty($_POST['timeshare_user'])) {
+    if (isset($_POST[TIMESHARE_USER_DATA]) && ! empty($_POST['timeshare_user'])) {
         $timeshare_user_id = intval($_POST['timeshare_user']);
 
         $timeshare_user_data = [
@@ -15,7 +15,7 @@ function handle_timeshare_user_data(): void
         ];
 
         // Save user meta data
-        update_user_meta($timeshare_user_id, 'timeshare_user_data', json_encode($timeshare_user_data));
+        update_user_meta($timeshare_user_id, TIMESHARE_USER_DATA, json_encode($timeshare_user_data));
     }
 }
 
@@ -55,7 +55,7 @@ function render_timeshare_user_package(array $timeshare_users): void
                     <option value="21">21</option>
                 </select>
 
-                <input type="submit" class="btn" name="timeshare_user_data" value="Save">
+                <input type="submit" class="btn" name="<?= TIMESHARE_USER_DATA; ?>" value="Save">
 
             </form>
         </div>
@@ -178,7 +178,7 @@ function get_pagination($users_timeshare_data_paginated, $rows_per_page, $curren
 function get_users_timeshare_data_paginated(int $page = 1, int $rows_per_page): array
 {
     global $wpdb;
-    $meta_key = 'timeshare_user_data';
+    $meta_key = TIMESHARE_USER_DATA;
     // Calculate the offset based on the current page and rows per page
     $offset = ($page - 1) * $rows_per_page;
 

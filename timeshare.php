@@ -61,6 +61,8 @@ if ( ! class_exists('Timeshare')) {
             //To save price calculation data in wp_options table
             define('TIMESHARE_PRICE_CALC_DATA', 'timeshare_price_calc_data');
 
+            //Meta Key
+            define('TIMESHARE_USER_DATA', 'timeshare_user_data');
             //The Timeshare user package duration
             define('TIMESHARE_PACKAGE_DURATION', 'timeshare_package_duration');
         }
