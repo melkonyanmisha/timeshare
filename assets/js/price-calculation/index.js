@@ -5,22 +5,26 @@ const timesharePriceCalcData = timeshareMain.timesharePriceCalcData
 
 $(document).ready(function () {
     disable(['more_six', 'four_six_before', 'two_four_before', 'less_two'], true);
-    $('.season-rate').off('change').on('change', function () {
+
+    $('.season-rate').on('change', function () {
+        const season = $(this).val();
         const form = $(this).data('form');
 
-        if ($(this).val() === 'all') {
+        if (form === 'less_two' && $(this).val() === 'all') {
             $('.yearly-percent').css('display', 'inline-block');
-            disable([form], $(this).val() === 'all', 'yearly');
-        } else {
+            disable([form], true, 'yearly');
+        } else if (form === 'less_two' && $(this).val() !== 'all') {
             $('.yearly-percent').css('display', 'none');
-            disable([form], !$(this).val());
+            disable([form], true);
+        } else if (form !== 'less_two' && $(this).val() !== 'all') {
+            disable([form], true);
         }
 
-
         if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-        if (!timesharePriceCalcData[form][$(this).val()]) timesharePriceCalcData[form][$(this).val()] = {}
+        if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
+        if (!timesharePriceCalcData[form][season]['discount_mode']) timesharePriceCalcData[form][season]['discount_mode'] = {};
 
-        fromStorage(form, $(this).val());
+        fromStorage(form, season);
     });
 
 
@@ -44,38 +48,33 @@ $(document).ready(function () {
 
     $('.discount-mode').on('change', function () {
         const form = $(this).data('form');
-
-        disable([form], $(this).val() === 'weekly', 'weekly');
-
         const season = $(`.season-rate[data-form=${form}]`).val();
 
-        if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-        if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
+        if ($(this).val() === '') {
+            disable([form], true);
+        }
 
         if ($(this).val() === 'weekly') {
-            delete timesharePriceCalcData[form][season].weeks;
+            const weekly_percent = $(`.weekly-percent[data-form=${form}]`);
 
-            $(`input.weekly-percent[data-form=${form}]`).each(function () { // restore prev value
-                $(this).change();
-            });
+            weekly_percent.attr('placeholder', 'Weekly percent');
+            disable([form], $(this).val() === 'weekly', 'weekly');
+            weekly_percent.change();
         }
 
         if ($(this).val() === 'daily') {
-            delete timesharePriceCalcData[form][season].weekly_percent;
-
-            $(`input.weekday-input[data-form=${form}]`).each(function () { // restore prev value
-                if ($(this).prop('checked')) {
-                    $(this).click();
-                    $(this).click();
-                }
-            });
-
-            $(`input.daily-percent[data-form=${form}]`).each(function () { // restore prev value
-                $(this).change();
-            });
+            disable([form], $(this).val() === 'daily', 'daily');
         }
 
-        timesharePriceCalcData[form][season]['discount_mode'] = $(this).val() || 'weekly';
+        if ($(this).val() === 'always') {
+            const weekly_percent = $(`.weekly-percent[data-form=${form}]`);
+
+            weekly_percent.attr('placeholder', 'Always percent');
+            disable([form], $(this).val() === 'always', 'always');
+            weekly_percent.change();
+        }
+
+        timesharePriceCalcData[form][season]['discount_mode']['mode'] = $(this).val();
     });
 
 
@@ -83,10 +82,7 @@ $(document).ready(function () {
         const form = $(this).data('form');
         const season = $(`.season-rate[data-form=${form}]`).val();
 
-        if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-        if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
-
-        timesharePriceCalcData[form][season]['yearly_percent'] = $(this).val();
+        timesharePriceCalcData[form][season]['discount_mode']['yearly_percent'] = $(this).val();
     });
 
 
@@ -94,10 +90,11 @@ $(document).ready(function () {
         const form = $(this).data('form');
         const season = $(`.season-rate[data-form=${form}]`).val();
 
-        if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-        if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
+        const percent_key = $(`.discount-mode[data-form=${form}]`).val() === 'always'
+            ? 'always_percent'
+            : 'weekly_percent';
 
-        timesharePriceCalcData[form][season]['weekly_percent'] = $(this).val();
+        timesharePriceCalcData[form][season]['discount_mode'][percent_key] = $(this).val();
     });
 
 
@@ -125,15 +122,34 @@ $(document).ready(function () {
     $('.daily-percent').on('change', onDailyPercentChange);
 
     $('.save-button button').click(function () {
+        const clean = (obj) => {
+            if (typeof obj !== 'object' || obj === null) return obj;
+
+            if (Array.isArray(obj)) {
+                const cleanedArray = obj.map(clean).filter(item => item !== undefined);
+                return cleanedArray.length > 0 ? cleanedArray : undefined;
+            }
+
+            const cleanedObj = {};
+            for (const key in obj) {
+                const cleanedValue = clean(obj[key]);
+                if (cleanedValue) cleanedObj[key] = cleanedValue;
+            }
+
+            return Object.keys(cleanedObj).length === 0 ? undefined : cleanedObj;
+        }
+
+        const result = clean(timesharePriceCalcData);
+
         $.ajax({
             type: "POST",
             url: timeshareMain.ajaxUrl,
             data: {
                 action: 'price_calc_data',
                 security: timeshareMain.security,
-                timesharePriceCalcData: JSON.stringify(timesharePriceCalcData)
+                timesharePriceCalcData: JSON.stringify(result)
             },
-            success: function (msg) {
+            success: function () {
                 $('.timeshare-toast').css({display: 'block'});
                 const timer = setTimeout(() => {
                     $('.timeshare-toast').css({display: 'none'});

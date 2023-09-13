@@ -4,7 +4,7 @@ function handle_price_calc_data()
 {
     check_ajax_referer('calc-security-nonce', 'security');
 
-    if ( ! empty($_POST['timesharePriceCalcData'])) {
+    if (!empty($_POST['timesharePriceCalcData'])) {
         update_option(TIMESHARE_PRICE_CALC_DATA, stripslashes($_POST['timesharePriceCalcData']));
     }
 
@@ -53,6 +53,8 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
 
                     <div class="discount-by-date">
                         <select class="discount-mode" data-form="more_six">
+                            <option value="">Select Mode</option>
+                            <option value="always">Always</option>
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                         </select>
@@ -142,6 +144,8 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
 
                     <div class="discount-by-date">
                         <select class="discount-mode" data-form="four_six_before">
+                            <option value="">Select Mode</option>
+                            <option value="always">Always</option>
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                         </select>
@@ -231,6 +235,8 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
 
                     <div class="discount-by-date">
                         <select class="discount-mode" data-form="two_four_before">
+                            <option value="">Select Mode</option>
+                            <option value="always">Always</option>
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                         </select>
@@ -312,11 +318,14 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
                             <option value="">Select Season</option>
                             <option value="all">All</option>
                         </select>
-                        <input type="number" class="yearly-percent" min="0" placeholder="Yearly percent" data-form="less_two">
+                        <input type="number" class="yearly-percent" min="0" placeholder="Yearly percent"
+                               data-form="less_two">
                     </div>
 
                     <div class="discount-by-date">
                         <select class="discount-mode" data-form="less_two">
+                            <option value="">Select Mode</option>
+                            <option value="always">Always</option>
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                         </select>

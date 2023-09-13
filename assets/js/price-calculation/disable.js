@@ -10,10 +10,10 @@ function disable(form, disabled, by) {
         const weekday_input = $(`.weekday-input[data-form=${f}]`);
 
         if (by === 'weekly') {
-            toggle(discount_sets, f, disabled);
-            toggle(daily_percent, f, disabled);
             toggle(yearly_percent, f, disabled);
             toggle(weekly_percent, f, !disabled);
+            toggle(discount_sets, f, disabled);
+            toggle(daily_percent, f, disabled);
             toggle(weekday_input, f, disabled);
             return;
         }
@@ -21,21 +21,41 @@ function disable(form, disabled, by) {
         if (by === 'yearly') {
             toggle(date_range, f, !disabled);
             toggle(discount_mode, f, disabled);
+            toggle(yearly_percent, f, !disabled);
+            toggle(weekly_percent, f, disabled);
             toggle(discount_sets, f, disabled);
             toggle(daily_percent, f, disabled);
-            toggle(weekly_percent, f, disabled);
             toggle(weekday_input, f, disabled);
             return;
         }
 
-        toggle(date_range, f, disabled);
-        toggle(add_date, f, disabled);
-        toggle(discount_mode, f, disabled);
+        if (by === 'daily') {
+            toggle(date_range, f, !disabled);
+            toggle(discount_mode, f, !disabled);
+            toggle(weekly_percent, f, disabled);
+            toggle(discount_sets, f, !disabled);
+            toggle(daily_percent, f, !disabled);
+            toggle(weekday_input, f, !disabled);
+            return;
+        }
+
+        if (by === 'always') {
+            toggle(yearly_percent, f, disabled);
+            toggle(weekly_percent, f, !disabled);
+            toggle(discount_sets, f, disabled);
+            toggle(daily_percent, f, disabled);
+            toggle(weekday_input, f, disabled);
+            return;
+        }
+
+        toggle(date_range, f, !disabled);
+        toggle(add_date, f, !disabled);
+        toggle(discount_mode, f, !disabled);
         toggle(yearly_percent, f, disabled);
         toggle(weekly_percent, f, disabled);
-        toggle(discount_sets, f, !disabled);
-        toggle(weekday_input, f, !disabled);
-        toggle(daily_percent, f, !disabled);
+        toggle(discount_sets, f, disabled);
+        toggle(daily_percent, f, disabled);
+        toggle(weekday_input, f, disabled);
     }
 }
 
