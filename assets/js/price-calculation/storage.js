@@ -69,14 +69,14 @@ function viewValues(form, season, value) {
     }
 
     // Set weekly percent
-    if (value.discount_mode?.weekly_percent) {
+    if (value.discount_mode.mode === 'weekly' && value.discount_mode?.weekly_percent) {
         $(`.weekly-percent[data-form=${form}]`)
             .prop('disabled', false)
             .val(value.discount_mode.weekly_percent);
     }
 
     // Set weekly percent
-    if (value.discount_mode?.always_percent) {
+    if (value.discount_mode.mode === 'always' && value.discount_mode?.always_percent) {
         $(`.weekly-percent[data-form=${form}]`)
             .prop('disabled', false)
             .val(value.discount_mode.always_percent);

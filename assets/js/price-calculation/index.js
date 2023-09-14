@@ -49,17 +49,15 @@ $(document).ready(function () {
     $('.discount-mode').on('change', function () {
         const form = $(this).data('form');
         const season = $(`.season-rate[data-form=${form}]`).val();
+        const weekly_percent = $(`.weekly-percent[data-form=${form}]`);
 
         if ($(this).val() === '') {
             disable([form], true);
         }
 
         if ($(this).val() === 'weekly') {
-            const weekly_percent = $(`.weekly-percent[data-form=${form}]`);
-
             weekly_percent.attr('placeholder', 'Weekly percent');
             disable([form], $(this).val() === 'weekly', 'weekly');
-            weekly_percent.change();
         }
 
         if ($(this).val() === 'daily') {
@@ -67,14 +65,13 @@ $(document).ready(function () {
         }
 
         if ($(this).val() === 'always') {
-            const weekly_percent = $(`.weekly-percent[data-form=${form}]`);
-
             weekly_percent.attr('placeholder', 'Always percent');
             disable([form], $(this).val() === 'always', 'always');
-            weekly_percent.change();
         }
 
         timesharePriceCalcData[form][season]['discount_mode']['mode'] = $(this).val();
+
+        fromStorage(form, season);
     });
 
 
