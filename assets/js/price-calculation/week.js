@@ -3,18 +3,15 @@ function onChangeWeekday() {
     const week = $(this).data('week');
     const season = $(`.season-rate[data-form=${form}]`).val();
 
-    if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-    if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
-
     const parent_id = $(this).parent().parent().parent().attr('id') || 0;
 
-    if (!timesharePriceCalcData[form][season]['weeks']) timesharePriceCalcData[form][season]['weeks'] = [];
-    if (!timesharePriceCalcData[form][season]['weeks'][parent_id]) timesharePriceCalcData[form][season]['weeks'][parent_id] = {}
+    if (!timesharePriceCalcData[form][season]['discount_mode']['weeks']) timesharePriceCalcData[form][season]['discount_mode']['weeks'] = [];
+    if (!timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id]) timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id] = {}
 
     if ($(this).prop('checked')) {
-        timesharePriceCalcData[form][season]['weeks'][parent_id][week] = $(this).prop('checked');
+        timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id][week] = $(this).prop('checked');
     } else {
-        delete timesharePriceCalcData[form][season]['weeks'][parent_id][week];
+        delete timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id][week];
     }
 }
 
@@ -39,7 +36,7 @@ function removeWeek(e) {
         const season = $(`.season-rate[data-form=${form}]`).val();
 
         $(this).remove();
-        timesharePriceCalcData[form][season]['weeks'].splice(+$(this).attr('id'), 1);
+        timesharePriceCalcData[form][season]['discount_mode']['weeks'].splice(+$(this).attr('id'), 1);
 
         const container = $(`.week[data-form=${form}]`);
         for (let i = 1; i < $(container).children().length; i++) {
@@ -52,13 +49,10 @@ function onDailyPercentChange() {
     const form = $(this).data('form');
     const season = $(`.season-rate[data-form=${form}]`).val();
 
-    if (!timesharePriceCalcData[form]) timesharePriceCalcData[form] = {}
-    if (!timesharePriceCalcData[form][season]) timesharePriceCalcData[form][season] = {}
-
     const parent_id = $(this).parent().parent().parent().attr('id') || 0;
 
-    if (!timesharePriceCalcData[form][season]['weeks']) timesharePriceCalcData[form][season]['weeks'] = [];
-    if (!timesharePriceCalcData[form][season]['weeks'][parent_id]) timesharePriceCalcData[form][season]['weeks'][parent_id] = {}
+    if (!timesharePriceCalcData[form][season]['discount_mode']['weeks']) timesharePriceCalcData[form][season]['discount_mode']['weeks'] = [];
+    if (!timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id]) timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id] = {}
 
-    timesharePriceCalcData[form][season]['weeks'][parent_id]['daily_percent'] = $(this).val();
+    timesharePriceCalcData[form][season]['discount_mode']['weeks'][parent_id]['daily_percent'] = $(this).val();
 }
