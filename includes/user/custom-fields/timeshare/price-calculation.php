@@ -302,15 +302,6 @@ function render_timeshare_user_price_calc(array $timeshare_users): void
                 <div class="form">
                     <div class="seasons-dates-range">
                         <h2>Less than 2 months</h2>
-                        <div class="range-blocks" data-form="less_two">
-                            <div class="range-block">
-                                <div class="season-date-range">
-                                    <input type="date" class="date-range" data-form="less_two" data-range="from">
-                                    <input type="date" class="date-range" data-form="less_two" data-range="to">
-                                </div>
-                                <button class="add-date" data-form="less_two">+</button>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="season-sets">
