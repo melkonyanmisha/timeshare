@@ -40,6 +40,8 @@ if ( ! class_exists('Timeshare')) {
 
         /**
          * Define Constants
+         *
+         * @return void
          */
         private function define_constants(): void
         {
@@ -77,7 +79,10 @@ if ( ! class_exists('Timeshare')) {
             add_action('admin_enqueue_scripts', [$this, 'timeshare_enqueue_scripts']);
         }
 
-        private function is_timeshare_plugin_page()
+        /**
+         * @return bool
+         */
+        private function is_timeshare_plugin_page(): bool
         {
             return get_current_screen()->id === 'users_page_timeshare-users-page';
         }
@@ -93,19 +98,7 @@ if ( ! class_exists('Timeshare')) {
                 return;
             }
 
-            #########Start USer Package##########
-            //Enqueue MAIN JS files
-            wp_enqueue_script(
-                'timeshare-user-package-main-js',
-                TIMESHARE_ASSETS_URL . '/js/user-package/script.js',
-                ['jquery'],
-                TIMESHARE_VERSION
-            );
-
-            wp_localize_script('timeshare-user-package-main-js', 'timeshareMain', [
-                'userGroupTaxonomy' => USER_GROUP_TAXONOMY,
-            ]);
-
+            #########Start User Package##########
             //Enqueue Main CSS files
             wp_enqueue_style(
                 'timeshare-user-package-main-css',
@@ -113,8 +106,7 @@ if ( ! class_exists('Timeshare')) {
                 [],
                 TIMESHARE_VERSION
             );
-            #########End USer Package##########
-
+            #########End User Package##########
 
             #########Start Price Calculation##########
             //Enqueue JS files
@@ -180,18 +172,20 @@ if ( ! class_exists('Timeshare')) {
 
         /**
          * Include required core files used in admin and on the frontend.
+         *
+         * @return void
          */
         private function includes(): void
         {
             if (defined('TIMESHARE_INC_PATH')) {
-                require_once(TIMESHARE_INC_PATH . '/user/custom-fields/user-group.php');
                 require_once(TIMESHARE_INC_PATH . '/user/custom-fields/timeshare/index.php');
             }
         }
 
         /**
-         * Display an admin error notice when PHP is older the version 7.4.
-         * Hook it to the 'admin_notices' action.
+         * Display an admin error notice when PHP is older the version 7.4. Hook it to the 'admin_notices' action.
+         *
+         * @return void
          */
         public function old_php_admin_error_notice(): void
         { /* translators: %1$s - the PHP version, %2$s and %3$s - strong HTML tags, %4$s - br HTMl tag. */
@@ -210,15 +204,15 @@ if ( ! class_exists('Timeshare')) {
 
         /**
          * Load the plugin translations
+         *
+         * @return void
          */
         private function load_translations(): void
         {
             load_plugin_textdomain('timeshare', false, dirname(TIMESHARE_BASENAME) . '/languages');
             load_plugin_textdomain('timeshare');
         }
-
     }
 }
-
 
 new Timeshare();
