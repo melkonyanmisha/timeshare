@@ -84,7 +84,7 @@ function render_timeshare_user_package_table()
     $rows_per_page = 1;
 
     // Call the function to get user data for the current page
-    $users_timeshare_data_paginated = get_users_timeshare_data_paginated($current_page, $rows_per_page);
+    $users_timeshare_data_paginated = get_users_timeshare_data_paginated($rows_per_page, $current_page);
     $users_timeshare_data           = $users_timeshare_data_paginated['users_timeshare_data'];
 
     ob_start();
@@ -170,12 +170,12 @@ function get_pagination($users_timeshare_data_paginated, $rows_per_page, $curren
 }
 
 /**
- * @param int $page
  * @param int $rows_per_page
+ * @param int $page
  *
  * @return array
  */
-function get_users_timeshare_data_paginated(int $page = 1, int $rows_per_page): array
+function get_users_timeshare_data_paginated(int $rows_per_page, int $page = 1): array
 {
     global $wpdb;
     $meta_key = TIMESHARE_USER_DATA;
